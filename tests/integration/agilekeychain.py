@@ -10,8 +10,11 @@ class AgileKeychainIntegrationTestCase(T.TestCase):
     def test_open(self):
         c = onepassword.keychain.AKeychain(self.test_file_root)
         c.unlock("george")
-        T.assert_equal(c.items[0]._decrypted, '{"notesPlain":"George wrote me!"}')
-        T.assert_equal(c.items[1]._decrypted, '{"fields":[{"name":"Username","value":"george","designation":"username"},{"value":"george","name":"Password","designation":"password"}]}')
+        items = sorted(c.items, key=lambda x: x.uuid)
+        T.assert_equal(items[0].uuid, '23591BA807444B1EB5F356A807ED62F0')
+        T.assert_equal(items[0]._decrypted, '{"notesPlain":"George wrote me!"}')
+        T.assert_equal(items[1].uuid, 'A7E82B9E4EAB4F8BB14DC3C6C25EF6C8')
+        T.assert_equal(items[1]._decrypted, '{"fields":[{"name":"Username","value":"george","designation":"username"},{"value":"george","name":"Password","designation":"password"}]}')
 
 
 if __name__ == '__main__':
