@@ -10,6 +10,8 @@ class AgileKeychainIntegrationTestCase(T.TestCase):
     def test_open(self):
         c = onepassword.keychain.AKeychain(self.test_file_root)
         c.unlock("george")
+        assert c.items[0]._decrypted == '{"notesPlain":"George wrote me!"}'
+        assert c.items[1]._decrypted == '{"fields":[{"name":"Username","value":"george","designation":"username"},{"value":"george","name":"Password","designation":"password"}]}'
 
 
 if __name__ == '__main__':

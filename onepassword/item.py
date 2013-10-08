@@ -1,4 +1,5 @@
 import simplejson
+import base64
 
 
 class AItem(object):
@@ -23,7 +24,7 @@ class AItem(object):
         else:
             raise KeyError("Neither keyID or securityLevel present in %s" % self.uuid)
         self.key_identifier = identifier
-        self._decrypted = self.keychain.decrypt(identifier, data['encrypted'])
+        self._decrypted = self.keychain.decrypt(identifier, base64.b64decode(data['encrypted']))
 
     def __repr__(self):
         return '%s<uuid=%s, keyid=%s>' % (self.__class__.__name__, self.uuid, self.key_identifier)

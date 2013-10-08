@@ -76,10 +76,10 @@ class AKeychain(AbstractKeychain):
             items.append(AItem.new_from_file(f, self))
         self.items = items
 
-    def decrypt(self, keyid, string):
+    def decrypt(self, keyid, data):
         if keyid not in self.keys:
             raise ValueError("Item encrypted with unknown key %s" % keyid)
-        return crypt_util.a_decrypt_item(padding.pkcs5_pad(string), self.keys[keyid])
+        return crypt_util.a_decrypt_item(data, self.keys[keyid])
 
 
 class CKeychain(AbstractKeychain):
