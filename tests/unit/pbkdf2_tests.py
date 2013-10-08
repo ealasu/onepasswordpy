@@ -40,6 +40,12 @@ class PBKDF2SHA1TestCase(T.TestCase):
             generated = _pbkdf2_nettle.pbkdf2_sha1(password, salt, length=16, iterations=iterations)
             T.assert_equal(generated, expected_key)
 
+    def test_vectors_nettle_slow(self):
+        from onepassword import _pbkdf2_nettle_slow
+        for password, salt, iterations, expected_key in self.VECTORS:
+            generated = _pbkdf2_nettle_slow.pbkdf2_sha1(password, salt, length=16, iterations=iterations)
+            T.assert_equal(generated, expected_key)
+
 
 class PBKDF2SHA512TestCase(T.TestCase):
     VECTORS = (
@@ -68,5 +74,11 @@ class PBKDF2SHA512TestCase(T.TestCase):
         from onepassword import _pbkdf2_nettle
         for password, salt, iterations, expected_key in self.VECTORS:
             generated = _pbkdf2_nettle.pbkdf2_sha512(password, salt, length=16, iterations=iterations)
+            T.assert_equal(generated, expected_key)
+
+    def test_vectors_nettle_slow(self):
+        from onepassword import _pbkdf2_nettle_slow
+        for password, salt, iterations, expected_key in self.VECTORS:
+            generated = _pbkdf2_nettle_slow.pbkdf2_sha512(password, salt, length=16, iterations=iterations)
             T.assert_equal(generated, expected_key)
 
